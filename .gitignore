@@ -1,0 +1,18 @@
+# 用户本地生成数据
+申论批改/
+错题库/
+
+# WorkBuddy 本地安装元数据
+_skillhub_meta.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 系统与编辑器
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
