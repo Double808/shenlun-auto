@@ -28,9 +28,11 @@
 
 ## 快速开始
 
-把下面这句话发给你正在用的 Agent（WorkBuddy / Codex / DeepSeek Harness / Claude Code 等），它会自己拉取、安装并排错：
+把下面这段话发给你正在用的 Agent（WorkBuddy / Codex / DeepSeek Harness / Claude Code 等）——鼠标移到代码块右上角，点复制图标即可整段拷走：
 
-> 帮我拉取 https://github.com/Double808/shenlun-auto 的最新源码，打包安装，全过程你盯着，有问题直接修复，且有必要的话顺手给项目提交 issue 帮助他们优化兼容性。
+```text
+帮我拉取 https://github.com/Double808/shenlun-auto 的最新源码，打包安装，全过程你盯着，有问题直接修复，且有必要的话顺手给项目提交 issue 帮助他们优化兼容性。
+```
 
 也可以手动安装：把 `shenlun-auto` 放进 `~/.workbuddy/skills/` 或 `~/.claude/skills/`，发图说「批改」即可。
 
