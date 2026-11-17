@@ -11,18 +11,6 @@
 
 不绑定任何平台。核心只是 `SKILL.md` + `references/` + 一个脚本，凡具备**读图 + 读写文件**能力的 Agent 都能跑。
 
-## 支持的 Agent
-
-| 宿主 | 加载方式 |
-|---|---|
-| **WorkBuddy** | 复制到 `~/.workbuddy/skills/`，或技能市场搜索「申论提分教练」安装 |
-| **Claude Code** | 复制到 `~/.claude/skills/shenlun-auto/` |
-| **Claude Desktop** | 设置 → Capabilities / 能力 → Skills → 上传本仓库打包的 zip |
-| **Codex / Cursor / Windsurf** | 仓库根目录已含 [`AGENTS.md`](AGENTS.md)，克隆后在仓库内启动即自动读取 |
-| **其他 Agent（任意支持系统提示的客户端）** | 把 `SKILL.md` 作为系统提示或项目规则加载；细则按需读 `references/` |
-
-> 工具名差异不用管：文中 `Read` 在别的宿主可能叫 `read_file` / `view_image`，按等价工具替换即可。
-
 ## 它解决什么问题
 
 市面上的申论批改大多停在"诊断"：丢了几个采分点、扣了几分。
@@ -40,7 +28,11 @@
 
 ## 快速开始
 
-克隆仓库，把 `shenlun-auto` 放进所用 Agent 的技能目录（WorkBuddy `~/.workbuddy/skills/`、Claude Code `~/.claude/skills/`），或直接在仓库内启动 Codex/Cursor，然后发图说「批改」即可。
+把下面这句话发给你正在用的 Agent（WorkBuddy / Codex / DeepSeek Harness / Claude Code 等），它会自己拉取、安装并排错：
+
+> 帮我拉取 https://github.com/Double808/shenlun-auto 的最新源码，打包安装，全过程你盯着，有问题直接修复，且有必要的话顺手给项目提交 issue 帮助他们优化兼容性。
+
+也可以手动安装：把 `shenlun-auto` 放进 `~/.workbuddy/skills/` 或 `~/.claude/skills/`，发图说「批改」即可。
 
 > 材料页一定要拍全——教学的核心是"材料哪句→怎么概括"。
 
