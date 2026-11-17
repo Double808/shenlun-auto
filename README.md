@@ -28,7 +28,7 @@
 
 ## 快速开始
 
-把下面这段话发给你正在用的 Agent（WorkBuddy / Codex / DeepSeek Harness / Claude Code 等）——鼠标移到代码块右上角，点复制图标即可整段拷走：
+把下面这段话发给你正在用的 Agent（WorkBuddy / Codex / DeepSeek Harness / Claude Code 等）
 
 ```text
 帮我拉取 https://github.com/Double808/shenlun-auto 的最新源码，打包安装，全过程你盯着，有问题直接修复，且有必要的话顺手给项目提交 issue 帮助他们优化兼容性。
