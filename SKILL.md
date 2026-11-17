@@ -14,7 +14,7 @@ examples_en:
   - "Review my comprehensive-analysis answer and tell me where I would lose points."
   - "Score my Shenlun essay and show me how to improve it next time."
 version: 1.2.0
-author: Suicide
+author: Double808
 agent_created: true
 ---
 
