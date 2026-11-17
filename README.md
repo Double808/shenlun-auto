@@ -3,10 +3,25 @@
 > 手写申论拍照即批。不只告诉你扣了几分，而是讲清这道题该怎么想、为什么这么答、下次怎么提高。
 
 ![license](https://img.shields.io/badge/license-MIT-blue)
-![platform](https://img.shields.io/badge/WorkBuddy-Skill-orange)
+![format](https://img.shields.io/badge/format-SKILL.md-orange)
+![agents](https://img.shields.io/badge/works%20with-Claude%20%7C%20Codex%20%7C%20Cursor%20%7C%20WorkBuddy-2ea44f)
 ![python](https://img.shields.io/badge/python-3.9%2B-3776AB)
 
-一个 [WorkBuddy](https://www.workbuddy.cn) 技能：把手写的申论答卷照片变成一份**教学复盘报告**——按稿纸格数转写、推算字数、匹配真题采分点，输出「题干解剖 → 材料映射 → 偏差定位 → 关键决策 → 可迁移技巧 → 考场自检 → 参考作答」七段教学。
+一个**通用 Agent 技能包**：把手写的申论答卷照片变成一份**教学复盘报告**——按稿纸格数转写、推算字数、匹配真题采分点，输出「题干解剖 → 材料映射 → 偏差定位 → 关键决策 → 可迁移技巧 → 考场自检 → 参考作答」七段教学。
+
+不绑定任何平台。核心只是 `SKILL.md` + `references/` + 一个脚本，凡具备**读图 + 读写文件**能力的 Agent 都能跑。
+
+## 支持的 Agent
+
+| 宿主 | 加载方式 |
+|---|---|
+| **WorkBuddy** | 复制到 `~/.workbuddy/skills/`，或技能市场搜索「申论提分教练」安装 |
+| **Claude Code** | 复制到 `~/.claude/skills/shenlun-auto/` |
+| **Claude Desktop** | 设置 → Capabilities / 能力 → Skills → 上传本仓库打包的 zip |
+| **Codex / Cursor / Windsurf** | 仓库根目录已含 [`AGENTS.md`](AGENTS.md)，克隆后在仓库内启动即自动读取 |
+| **其他 Agent（任意支持系统提示的客户端）** | 把 `SKILL.md` 作为系统提示或项目规则加载；细则按需读 `references/` |
+
+> 工具名差异不用管：文中 `Read` 在别的宿主可能叫 `read_file` / `view_image`，按等价工具替换即可。
 
 ## 它解决什么问题
 
@@ -25,23 +40,21 @@
 
 ## 快速开始
 
-### 方式一：WorkBuddy 技能市场
-
-在 WorkBuddy 左侧「专家 · 技能 · 连接器」→「技能市场」搜索 **申论提分教练**，点击加号安装。
-
-### 方式二：手动安装
+### 任意 Agent：克隆即用
 
 ```bash
 git clone https://github.com/Double808/shenlun-auto.git
-cp -r shenlun-auto ~/.workbuddy/skills/
 ```
 
-Windows 下把整个 `shenlun-auto` 文件夹复制到 `~\.workbuddy\skills\`，重启 WorkBuddy 生效。
+- **Claude Code**：`cp -r shenlun-auto ~/.claude/skills/`
+- **WorkBuddy**：`cp -r shenlun-auto ~/.workbuddy/skills/`（Windows 复制到 `%USERPROFILE%\.workbuddy\skills\`）
+- **Codex / Cursor 等**：在仓库目录内启动，`AGENTS.md` 会自动生效
+- **Claude Desktop**：把仓库打包成 zip，在 Skills 设置里上传
 
 ### 使用
 
 1. 拍三样：**题干页、材料页、手写作答页**（多页可一次发，不用按顺序）
-2. 发进对话，说「批改」或直接发图
+2. 说「批改」或直接发图
 3. 得到：七段教学复盘 + 手写答案转写稿（供核对）+ 两版参考作答 + 错题库更新
 
 > 想让"为什么"讲得准，**材料页一定要拍全**——教学的核心是"材料哪句→怎么概括"，看不到材料就只剩答案点评。
@@ -76,7 +89,7 @@ Windows 下把整个 `shenlun-auto` 文件夹复制到 `~\.workbuddy\skills\`，
 
 ## 字数推算脚本
 
-`scripts/count_grid.py` 是纯标准库实现的稿纸字数 CLI（Python 3.9+），也可以单独用：
+`scripts/count_grid.py` 是纯标准库实现的稿纸字数 CLI（Python 3.9+），跨平台，也可单独用：
 
 ```bash
 # 逐行占格（25 格稿纸，9 整行 + 末行 19 格），限制 250 字，附转写字符数做双通道校验
@@ -93,13 +106,14 @@ python scripts/count_grid.py --cols 25 --rows 9.8 --limit 250 --json
 ```
 shenlun-auto/
 ├── SKILL.md                          技能主控流程（7 步流水线）
+├── AGENTS.md                         AGENTS.md 型 Agent 的入口（Codex/Cursor 等）
 ├── README.md                         本文件
 ├── CHANGELOG.md                      更新日志
 ├── NOTICE.md                         第三方内容与授权说明
 ├── LICENSE                           MIT
 ├── examples/
 │   └── sample-report.md              完整报告示例
-├── references/                       参考库（平台要求 ≤ 两级目录，已扁平化）
+├── references/                       参考库（已扁平化，适配两级目录限制）
 │   ├── teaching-report-spec.md       教学报告七段结构（默认）
 │   ├── auto-report-spec.md           诊断报告八段结构（降级）
 │   ├── handwriting-grid-reading.md   手写格纸识读细则
@@ -123,8 +137,6 @@ shenlun-auto/
     └── count_grid.py                 稿纸字数推算 CLI
 ```
 
-> 平台限制技能包最多两级目录（`根/二级/文件`），因此上游模块的嵌套 `references/` 已全部拍平到一层，真题库文件统一加 `exam-` 前缀。
-
 ## 数据存放与隐私
 
 - 批改报告写入工作区 `申论批改/`，错题库写入 `错题库/`，**均不在技能包内**，升级或重装不会覆盖历史记录
@@ -133,7 +145,7 @@ shenlun-auto/
 
 ## 已知限制
 
-- 手写识读依赖多模态模型的视觉能力，字迹潦草时会有个别字误识；误识处列入「待复核」区，**不计入评分**
+- 手写识读依赖宿主的视觉能力，字迹潦草时会有个别字误识；误识处列入「待复核」区，**不计入评分**
 - 分值、字数限制若未拍进画面，会按题型默认值补齐，并在报告中标注为假设
 - 未匹配到真题时，采分点为现场拆解，报告会明确标注
 - 输出为学习辅助建议，**不构成任何考试承诺或评分权威**；实际成绩以官方阅卷为准
@@ -144,3 +156,6 @@ shenlun-auto/
 - `references/` 下的方法论库来自开源项目 [coffe-d/Shenlun.skill](https://github.com/coffe-d/Shenlun.skill)（MIT）；白鹭、小马哥、袁东的方法论思想权利归原讲授者所有
 - 完整来源、改动说明与授权边界见 [NOTICE.md](NOTICE.md)
 
+---
+
+欢迎 Issue / PR。更新日志见 [CHANGELOG.md](CHANGELOG.md)。

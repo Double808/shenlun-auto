@@ -13,7 +13,7 @@ examples_en:
   - "Here is a photo of my handwritten Shenlun answer. Please grade it."
   - "Review my comprehensive-analysis answer and tell me where I would lose points."
   - "Score my Shenlun essay and show me how to improve it next time."
-version: 1.1.1
+version: 1.2.0
 author: Suicide
 agent_created: true
 ---
@@ -32,6 +32,21 @@ agent_created: true
 > 1. **如何作答** —— 从题干到答案的操作步骤（①④）
 > 2. **为什么这么作答** —— 每一步的材料依据与判据（②④）
 > 3. **如何提高技巧** —— 能带走用的规则与自检清单（⑤⑥）
+
+---
+
+## 运行环境（跨 Agent 兼容）
+
+本技能是**纯指令型技能包**，不依赖任何平台专有 API，只要宿主 Agent 具备"读图 + 读写文件"能力即可运行：
+
+| 宿主 | 加载方式 |
+|---|---|
+| WorkBuddy | 放入 `~/.workbuddy/skills/`，或从技能市场安装 |
+| Claude Code / Claude Desktop | 放入 `~/.claude/skills/`；Desktop 也可在设置 → Capabilities → Skills 上传 zip |
+| Codex / Cursor / Windsurf 等 | 仓库根目录已提供 `AGENTS.md`，克隆后在仓库内启动即自动读取；也可把本文件加入项目指令 |
+| 其他 Agent | 直接把 `SKILL.md` 作为系统提示或项目规则加载，细则按需读 `references/` |
+
+**工具名适配**：文中出现的 `Read`（读图/读文件）在不同宿主中可能叫 `read_file`、`view_image`，或需通过 shell 读取——**按宿主的等价工具替换即可，语义不变**。
 
 ---
 
@@ -79,7 +94,7 @@ agent_created: true
 
 1. **并行一次性读完，禁止串行逐个读。**
    Agent 每轮请求都要重发全部历史，串行读 5 个文件 = 5 轮重发 = 同一批内容被计费 5 次。
-   需要多个文件时，在**同一轮**发起多个 Read。
+   需要多个文件时，在**同一轮**发起多个读取调用（`Read` / `read_file` 等等价工具）。
 2. **整卷批改时，小题库与大作文库都要读**（不是二选一），一次读完。
 3. **图片同样并行读**：12 页整卷就一次发 12 个 Read，不要分 12 轮。
 4. **只读本次要用的**：归纳概括题不必读公文相关材料；纯打分不必读表述升级表。
@@ -105,7 +120,7 @@ agent_created: true
 
 ### Step 1 · 图片清点与质量分诊
 
-**一次性并行读取全部图片**（12 页就发 12 个 Read，不要分轮），再建立整体认知，**不做任何评分判断**：
+**一次性并行读取全部图片**（12 页就一次发 12 个读图调用，不要分轮），再建立整体认知，**不做任何评分判断**：
 
 - 清点：共几张、每张是**题干页 / 材料页 / 作答页 / 整卷页**
 - 判定页序（按题号与内容衔接，不按上传顺序盲信）

@@ -2,6 +2,16 @@
 
 版本号规则：`MAJOR.MINOR.PATCH`。WorkBuddy 平台要求包内版本号严格大于市场已发布版本，因此每次提交前必须递增。
 
+## v1.2.0 — 2026-11-17
+
+### 新增
+- **跨 Agent 支持**：新增 `AGENTS.md`，Codex、Cursor、Windsurf 等遵循 AGENTS.md 约定的宿主克隆仓库即自动加载
+- `SKILL.md` 新增「运行环境（跨 Agent 兼容）」章节：列出 WorkBuddy / Claude Code / Claude Desktop / Codex 等宿主的加载方式，并说明工具名等价替换规则（`Read` ↔ `read_file` / `view_image`）
+
+### 变更
+- README 重写为平台无关：新增「支持的 Agent」对照表、多宿主安装步骤
+- 表述去平台化："发 12 个 Read" → "发 12 个读图调用"；并行读取说明补充等价工具名
+
 ## v1.1.1 — 2026-11-17
 
 ### 变更
