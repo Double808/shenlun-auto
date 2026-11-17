@@ -13,7 +13,7 @@ examples_en:
   - "Here is a photo of my handwritten Shenlun answer. Please grade it."
   - "Review my comprehensive-analysis answer and tell me where I would lose points."
   - "Score my Shenlun essay and show me how to improve it next time."
-version: 1.2.0
+version: 1.2.1
 author: Double808
 agent_created: true
 ---
@@ -200,7 +200,8 @@ agent_created: true
 
 - 联网搜索题干原文 → **必须进详情页**，不停在摘要层
 - 匹配本地真题库 `references/exam-index.md`
-- **命中**：以真题采分点为基准
+- **命中且该题采分点已收录**：以真题采分点为基准
+- **命中但采分点为 `[待补充]` 或整题未收录**：降级为按材料现场拆采分点，报告中标注「命中真题，采分点未收录，已降级为现场拆解」
 - **未命中**：按材料现场拆采分点，报告中标注「未匹配真题，采分点为现场拆解」
 
 ### Step 5 · 分派批改

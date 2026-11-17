@@ -77,11 +77,9 @@ def judge_limit(chars: int, limit: Optional[int]) -> dict:
             "verdict": f"未超限（{chars}/{limit}，占用 {ratio:.1%}）",
         }
     if over / limit <= 0.10:
-        verdict = f"超出 {over} 字（{ratio:.1%}），在 10% 容忍度内，不扣分"
-    elif over / limit <= 0.20:
-        verdict = f"超出 {over} 字（{ratio:.1%}），建议扣 1-2 分"
+        verdict = f"超出 {over} 字（{ratio:.1%}），轻微超限；未提供扣分依据，不自动扣分"
     else:
-        verdict = f"超出 {over} 字（{ratio:.1%}），按规则扣分，须给删减方案"
+        verdict = f"超出 {over} 字（{ratio:.1%}），明显超限；未提供扣分依据，不自动扣分，须给删减方案"
     return {"limit": limit, "ratio": round(ratio, 4), "over": over, "verdict": verdict}
 
 
