@@ -40,24 +40,9 @@
 
 ## 快速开始
 
-### 任意 Agent：克隆即用
+克隆仓库，把 `shenlun-auto` 放进所用 Agent 的技能目录（WorkBuddy `~/.workbuddy/skills/`、Claude Code `~/.claude/skills/`），或直接在仓库内启动 Codex/Cursor，然后发图说「批改」即可。
 
-```bash
-git clone https://github.com/Double808/shenlun-auto.git
-```
-
-- **Claude Code**：`cp -r shenlun-auto ~/.claude/skills/`
-- **WorkBuddy**：`cp -r shenlun-auto ~/.workbuddy/skills/`（Windows 复制到 `%USERPROFILE%\.workbuddy\skills\`）
-- **Codex / Cursor 等**：在仓库目录内启动，`AGENTS.md` 会自动生效
-- **Claude Desktop**：把仓库打包成 zip，在 Skills 设置里上传
-
-### 使用
-
-1. 拍三样：**题干页、材料页、手写作答页**（多页可一次发，不用按顺序）
-2. 说「批改」或直接发图
-3. 得到：七段教学复盘 + 手写答案转写稿（供核对）+ 两版参考作答 + 错题库更新
-
-> 想让"为什么"讲得准，**材料页一定要拍全**——教学的核心是"材料哪句→怎么概括"，看不到材料就只剩答案点评。
+> 材料页一定要拍全——教学的核心是"材料哪句→怎么概括"。
 
 ## 报告结构
 
