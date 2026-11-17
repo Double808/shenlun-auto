@@ -36,7 +36,7 @@ git clone https://github.com/Double808/shenlun-auto.git
 cp -r shenlun-auto ~/.workbuddy/skills/
 ```
 
-Windows 下把整个 `shenlun-auto` 文件夹复制到 `C:\Users\<你的用户名>\.workbuddy\skills\`，重启 WorkBuddy 生效。
+Windows 下把整个 `shenlun-auto` 文件夹复制到 `~\.workbuddy\skills\`，重启 WorkBuddy 生效。
 
 ### 使用
 
@@ -144,13 +144,3 @@ shenlun-auto/
 - `references/` 下的方法论库来自开源项目 [coffe-d/Shenlun.skill](https://github.com/coffe-d/Shenlun.skill)（MIT）；白鹭、小马哥、袁东的方法论思想权利归原讲授者所有
 - 完整来源、改动说明与授权边界见 [NOTICE.md](NOTICE.md)
 
-## 贡献
-
-欢迎 Issue 与 PR。两条硬约束：
-
-1. 方法论库中标注 ❌ 已证伪的条目**不得**用于批改逻辑
-2. 修改 `SKILL.md` 的 frontmatter 后，`version` 必须递增（WorkBuddy 平台按版本号校验更新）
-
-## 更新日志
-
-见 [CHANGELOG.md](CHANGELOG.md)。
