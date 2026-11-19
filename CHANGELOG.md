@@ -2,6 +2,12 @@
 
 版本号规则：`MAJOR.MINOR.PATCH`。WorkBuddy 平台要求包内版本号严格大于市场已发布版本，因此每次提交前必须递增。
 
+## v1.2.2 — 2026-11-18
+
+### 变更
+- **WorkBuddy 开放平台适配**：frontmatter 移除平台不识别的 `agent_created` 字段；`examples_zh` / `examples_en` 改为行内数组格式（官方文档标注的最稳写法）；全部字段值确认无半角冒号
+- README 新增「WorkBuddy 市场提交与打包」一节，说明提交包内容与构建步骤
+
 ## v1.2.1 — 2026-11-17
 
 ### 修复

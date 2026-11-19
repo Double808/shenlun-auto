@@ -5,17 +5,10 @@ display_name_en: Shenlun Score Coach
 description: 手写申论拍照即批：按稿纸格数转写、推算字数、匹配真题采分点，产出"怎么答、为什么、怎么提高"的教学复盘。用户发来申论手写或打印作答的照片、扫描件，或要求批改、打分、看写得怎么样、申论怎么提高时使用。
 description_zh: 申论拍照即批改，不只打分，更教你下次怎么答对。
 description_en: Snap a handwritten Shenlun answer and get a teaching review that shows not just the score, but how to answer, why it works, and what to practice next.
-examples_zh:
-  - "我拍了申论归纳概括题的手写作答，帮我批改一下"
-  - "看看我这道综合分析题写得怎么样，哪里会丢分"
-  - "把我的申论大作文按考试标准打分，讲讲下次怎么写"
-examples_en:
-  - "Here is a photo of my handwritten Shenlun answer. Please grade it."
-  - "Review my comprehensive-analysis answer and tell me where I would lose points."
-  - "Score my Shenlun essay and show me how to improve it next time."
-version: 1.2.1
+examples_zh: ["我拍了申论归纳概括题的手写作答，帮我批改一下", "看看我这道综合分析题写得怎么样，哪里会丢分", "把我的申论大作文按考试标准打分，讲讲下次怎么写"]
+examples_en: ["Here is a photo of my handwritten Shenlun answer. Please grade it.", "Review my comprehensive-analysis answer and tell me where I would lose points.", "Score my Shenlun essay and show me how to improve it next time."]
+version: 1.2.2
 author: Double808
-agent_created: true
 ---
 
 # 申论提分教练 · 教学型批改
