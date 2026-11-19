@@ -7,7 +7,7 @@ description_zh: 申论拍照即批改，不只打分，更教你下次怎么答�
 description_en: Snap a handwritten Shenlun answer and get a teaching review that shows not just the score, but how to answer, why it works, and what to practice next.
 examples_zh: ["我拍了申论归纳概括题的手写作答，帮我批改一下", "看看我这道综合分析题写得怎么样，哪里会丢分", "把我的申论大作文按考试标准打分，讲讲下次怎么写"]
 examples_en: ["Here is a photo of my handwritten Shenlun answer. Please grade it.", "Review my comprehensive-analysis answer and tell me where I would lose points.", "Score my Shenlun essay and show me how to improve it next time."]
-version: 1.2.2
+version: 1.3.0
 author: Double808
 ---
 
@@ -66,6 +66,7 @@ author: Double808
 | 表述升级 | `references/expression-upgrade-rules.md` | 给替换词时 |
 | **教学报告结构** | `references/teaching-report-spec.md` | **默认**，Step 6 必读 |
 | 诊断报告结构 | `references/auto-report-spec.md` | 仅用户要"只打分"时 |
+| HTML 报告规范 | `references/html-report-spec.md` | Step 7 生成阅读版必读 |
 | 手写格纸识读 | `references/handwriting-grid-reading.md` | Step 2 必读 |
 
 **加载纪律**：本文件已覆盖流程，**不要预加载**下游库；只在真正需要细则时读。
@@ -247,7 +248,7 @@ author: Double808
 
 ### Step 7 · 归档与错题库（不得跳过）
 
-1. 报告写入 `申论批改/<YYYY-MM-DD>-<题型>-<短标题>.md`（工作区根目录，不存在则创建）
+1. 报告写入 `申论批改/<YYYY-MM-DD>-<题型>-<短标题>.md`（工作区根目录，不存在则创建），**并同步生成同名 `.html` 阅读版**（模板 `templates/report-template.html`，规则见 `references/html-report-spec.md`；宿主不支持写 HTML 时注明跳过，不中断批改）
 2. 错题库 `错题库/` 按 `references/error-bank-rules.md` 更新，但**记录维度按教学口径调整**：
    - 记「**哪类信号词没识别出来**」，不记"漏了哪个采分点"
    - 记「**概括词自拟而非用材料原词**」，不记"表述不规范"
@@ -351,5 +352,5 @@ author: Double808
 - [ ] 两版参考作答**结构不同**（不是换措辞），且点明了差异本质
 - [ ] 手写场景**没有输出错别字表**、没有逐句勾划表
 - [ ] 错题库按**认知偏差**维度更新，复发项已提醒
-- [ ] 报告已落盘，路径写在末尾
+- [ ] 报告已落盘，路径写在末尾；HTML 阅读版已生成——无 `{{ }}` 占位符残留、无 HTML 实体乱码，与 md 版得分/采分点/偏差逐项一致
 - [ ] 读取文件与图片时**用了并行**，没有串行逐个读

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{题型}} · 教学复盘 — {{短标题}}</title>
+<style>
+  :root {
+    --ink: #1f2937; --muted: #6b7280; --line: #e5e7eb; --bg: #f6f7f9; --card: #ffffff;
+    --red: #dc2626; --red-bg: #fef2f2; --amber: #d97706; --amber-bg: #fffbeb;
+    --green: #16a34a; --green-bg: #f0fdf4; --gray: #6b7280; --gray-bg: #f3f4f6;
+    --blue: #2563eb; --blue-bg: #eff6ff; --purple: #7c3aed; --purple-bg: #f5f3ff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.7; padding: 24px 16px; }
+  .wrap { max-width: 920px; margin: 0 auto; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; }
+  h1 { font-size: 21px; margin-bottom: 4px; }
+  h2 { font-size: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  h2 .no { background: var(--ink); color: #fff; border-radius: 6px; font-size: 12px; padding: 1px 7px; }
+  h3 { font-size: 14px; margin: 10px 0 6px; }
+  .sub { color: var(--muted); font-size: 13px; }
+
+  .head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .score-box { text-align: center; background: var(--red-bg); border: 1px solid #fecaca; border-radius: 12px; padding: 10px 22px; }
+  .score-box .s { font-size: 30px; font-weight: 700; color: var(--red); }
+  .score-box .r { font-size: 12px; color: var(--muted); }
+  .badge { display: inline-block; border-radius: 999px; padding: 2px 10px; font-size: 12px; margin: 2px 4px 2px 0; border: 1px solid; }
+  .b-blue { color: var(--blue); background: var(--blue-bg); border-color: #bfdbfe; }
+  .b-gray { color: var(--gray); background: var(--gray-bg); border-color: var(--line); }
+  .b-red { color: var(--red); background: var(--red-bg); border-color: #fecaca; }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+  .stat .v { font-size: 20px; font-weight: 700; }
+  .stat .l { font-size: 12px; color: var(--muted); }
+  .ok { color: var(--green); } .warn { color: var(--amber); } .bad { color: var(--red); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--gray-bg); text-align: left; padding: 7px 10px; font-weight: 600; white-space: nowrap; }
+  td { border-top: 1px solid var(--line); padding: 7px 10px; vertical-align: top; }
+
+  .pill { display: inline-block; border-radius: 999px; padding: 1px 9px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+  .p-full { background: var(--green-bg); color: var(--green); }
+  .p-part { background: var(--amber-bg); color: var(--amber); }
+  .p-miss { background: var(--red-bg); color: var(--red); }
+
+  .transcript { background: #fffdf5; border: 1px dashed #e3d5ac; border-radius: 10px; padding: 14px 18px; font-size: 14px; margin-top: 10px; }
+  mark.q { background: var(--amber-bg); color: var(--amber); padding: 0 5px; border-radius: 4px; font-weight: 700; }
+  .legend { font-size: 12px; color: var(--muted); }
+  .meta { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 10px; }
+  .meta div { background: var(--gray-bg); border-radius: 8px; padding: 8px 12px; font-size: 12.5px; }
+  .meta b { display: block; font-size: 13px; }
+
+  .pt { border: 1px solid var(--line); border-left: 4px solid; border-radius: 10px; padding: 12px 16px; margin-bottom: 10px; }
+  .pt.hit { border-left-color: var(--green); } .pt.part { border-left-color: var(--amber); }
+  .pt.miss { border-left-color: var(--red); } .pt.na { border-left-color: var(--gray); }
+  .pt-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+  .pt-head b { font-size: 14px; }
+  .qrow3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+  .quote { border-radius: 8px; padding: 8px 12px; font-size: 13px; }
+  .quote label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 2px; font-weight: 700; }
+  .q-mat { background: #fffdf5; border: 1px dashed #e3d5ac; }
+  .q-sum { background: var(--green-bg); border: 1px solid #bbf7d0; }
+  .q-user { background: var(--blue-bg); border: 1px solid #bfdbfe; }
+  .verdict { font-size: 13px; padding-top: 8px; border-top: 1px dashed var(--line); }
+
+  .dev { border-left: 4px solid; border-radius: 10px; padding: 12px 16px; margin-bottom: 10px; }
+  .dev .tag { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+  .dev p { font-size: 13px; }
+  .d-red { border-color: var(--red); background: var(--red-bg); } .d-red .tag { color: var(--red); }
+  .d-amber { border-color: var(--amber); background: var(--amber-bg); } .d-amber .tag { color: var(--amber); }
+  .d-purple { border-color: var(--purple); background: var(--purple-bg); } .d-purple .tag { color: var(--purple); }
+  .d-gray { border-color: var(--gray); background: var(--gray-bg); } .d-gray .tag { color: var(--gray); }
+  .vs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
+  .vs > div { background: rgba(255,255,255,.75); border-radius: 8px; padding: 8px 12px; font-size: 13px; }
+
+  details { border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; margin-bottom: 10px; font-size: 13px; }
+  summary { font-weight: 700; cursor: pointer; }
+  details > div { padding-top: 8px; }
+
+  .tips { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .tip { border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; font-size: 13px; }
+  .tip .x { color: var(--blue); font-weight: 700; }
+  .tip .y { color: var(--green); font-weight: 700; }
+
+  .check li { list-style: none; padding: 4px 0 4px 26px; position: relative; font-size: 13px; }
+  .check li::before { content: "☐"; position: absolute; left: 4px; color: var(--blue); }
+
+  .ref { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .refcard { border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; font-size: 13px; }
+  .refcard.v1 { border-top: 3px solid var(--blue); }
+  .refcard.v2 { border-top: 3px solid var(--purple); }
+  .refcard h3 { margin-top: 0; }
+  .refcard p { margin: 5px 0; }
+  .refcard del { color: var(--muted); }
+  .withdraw { font-size: 11px; background: var(--red-bg); color: var(--red); border-radius: 4px; padding: 1px 6px; margin-left: 6px; font-weight: 700; white-space: nowrap; }
+
+  .trend { margin-bottom: 8px; font-size: 13px; }
+  .cnt { display: inline-block; min-width: 44px; text-align: center; border-radius: 6px; color: #fff; font-weight: 700; padding: 1px 8px; margin-right: 8px; }
+  .c5 { background: var(--red); } .c3 { background: var(--amber); } .c2 { background: #f59e0b; } .c1 { background: var(--gray); }
+
+  .footer { text-align: center; color: var(--muted); font-size: 12px; padding: 12px 0 30px; }
+  @media (max-width: 640px) { .stats { grid-template-columns: repeat(2,1fr); } .tips, .vs, .ref, .meta, .qrow3 { grid-template-columns: 1fr; } }
+  @media print { body { background: #fff; padding: 0; } .card { border: none; padding: 8px 0; } details { page-break-inside: avoid; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- 头部：题型标题 + 考试出处 + 得分框（得分始终放头部显眼处，区间/复核状态写在框内） -->
+<div class="card">
+  <div class="head">
+    <div>
+      <h1>{{题型}} · 教学复盘</h1>
+      <div class="sub">{{考试年份省份卷别 · 第N题 · 题目要求 · X分 / ≤X字}}</div>
+      <div style="margin-top:8px">
+        <!-- 徽章按实际选用：真题命中（蓝）/ 采分点现场拆解（灰）/ 用时超限（红） -->
+        <span class="badge b-blue">✓ 联网命中真题</span>
+        <span class="badge b-gray">采分点为现场拆解</span>
+        <span class="badge b-red">⚠ 用时 X 分钟（建议 X–X）</span>
+      </div>
+    </div>
+    <div class="score-box">
+      <div class="s">{{得分}}<span style="font-size:15px;color:var(--muted)">/{{满分}}</span></div>
+      <div class="r">{{复核区间或"作参照非结论"}}</div>
+    </div>
+  </div>
+</div>
+
+<!-- 指标条：四格固定；数值颜色 ok=绿 / warn=黄 / bad=红 -->
+<div class="stats">
+  <div class="stat"><div class="v ok">{{得分率}}</div><div class="l">得分率{{（复核后）}}</div></div>
+  <div class="stat"><div class="v ok">{{占格}}/{{限}}</div><div class="l">稿纸占格 · {{未超限/超限}}</div></div>
+  <div class="stat"><div class="v warn">{{踩中}}/{{总点}}</div><div class="l">采分点覆盖</div></div>
+  <div class="stat"><div class="v bad">{{用时}}</div><div class="l">用时 · {{与建议区间对比}}</div></div>
+</div>
+
+<!-- 手写转写：忠实转写全文；存疑字用 <mark class="q">〔候选?〕</mark> 原位高亮；不得润色 -->
+<div class="card">
+  <h2><span class="no">转写</span>手写答案识别记录（供核对）</h2>
+  <p class="legend">以下为忠实转写，保留原分条与表述，未作润色 · <mark class="q">〔候选?〕</mark>＝候选识别，不据此扣分</p>
+  <div class="transcript">{{忠实转写全文，存疑处原位标记}}</div>
+  <div class="meta">
+    <div><b>{{N 条 / N 行}}</b>{{涂改情况}}，存疑 {{N}} 处</div>
+    <div><b>稿纸占格 ≈{{N}}</b>{{整行×格 + 末行格}} · 限 {{N}} {{合规/超限}}</div>
+    <div><b>双通道偏差 {{N}}%</b>转写字符 {{N}} → 取格数推算值</div>
+  </div>
+</div>
+
+<!-- 答案骨架：每条作答一行，是 ③ 偏差定位与验收指标的数据源 -->
+<div class="card">
+  <h2><span class="no">骨架</span>你的答案逐条拆解（诊断数据源）</h2>
+  <table>
+    <tr><th>条号</th><th>你的概括词</th><th>主语</th><th>覆盖采分点</th><th>状态</th><th>占格</th></tr>
+    <!-- 每条一行：主语列标"自拟词/多主语"；状态列用 p-full/p-part/p-miss 胶囊 -->
+    <tr><td>{{一}}</td><td>{{概括词}}</td><td><span class="pill p-part">{{主语或问题}}</span></td><td>{{覆盖情况}}</td><td><span class="pill p-full">{{命中}}</span></td><td>{{N}}</td></tr>
+  </table>
+  <p class="sub" style="margin-top:8px">{{骨架读法：概括词自拟数 / 主语重复占条 / 被挤掉的空间}}</p>
+</div>
+
+<!-- ① 题干解剖：紧凑表格，每项带依据 -->
+<div class="card">
+  <h2><span class="no">①</span>题干解剖（审题 60 秒）</h2>
+  <table>
+    <tr><th>项</th><th>内容</th><th>依据</th></tr>
+    <tr><td>题型</td><td>{{题型判定}}</td><td>{{动词+对象判据}}</td></tr>
+    <tr><td>要素</td><td>{{单一/多重要素}}</td><td>{{题干要素词}}</td></tr>
+    <tr><td>范围</td><td>{{给定资料N}}</td><td>{{题干限定}}</td></tr>
+    <tr><td>分值→条数</td><td>{{X分 → 约N条，每条N字}}</td><td>{{分值÷点数换算}}</td></tr>
+    <tr><td>命题意图</td><td>{{考什么能力}}</td><td>{{材料结构证据}}</td></tr>
+  </table>
+</div>
+
+<!-- ② 逐采分点对照：每个采分点一张卡，四层固定（材料原文→上位概括→你的作答→判定）。
+     卡片状态：hit=全踩(绿) / part=半踩(黄) / miss=未踩(红) / na=非采分点或撤回(灰)。
+     一个采分点含多个发声主体时，主体各占一组 qrow3（上下排布）。 -->
+<div class="card">
+  <h2><span class="no">②</span>材料 → 答案映射（逐采分点对照）<span class="sub">每点四层：材料原文 → 上位概括 → 你的原话 → 踩点判定</span></h2>
+
+  <div class="pt hit">
+    <div class="pt-head"><span class="no">采分点 ①</span><b>{{采分点名称}}</b><span class="pill p-full">✓ 全踩 {{得}}/{{满}}</span><span class="badge b-gray">信号：{{识别信号}}</span></div>
+    <div class="qrow3">
+      <div class="quote q-mat"><label>📄 材料原文（{{段N·主体}}）</label>{{关键句原文}}</div>
+      <div class="quote q-sum"><label>⬆ 上位概括</label>{{信号词 → 提炼出的点}}</div>
+      <div class="quote q-user"><label>✍ 你的作答</label>{{你的原话；未写处红字标注}}</div>
+    </div>
+    <div class="verdict"><span class="pill p-full">踩上</span> {{为什么算踩上 / 差在哪}}</div>
+  </div>
+  <!-- 其余采分点按同结构重复；未踩点用 pt miss；非采分点/复核撤回点用 pt na -->
+</div>
+
+<!-- ③ 偏差定位：卡片分色 红=漏点 橙=偏差 紫=错位 灰=冗余；每张卡内"你的思路 vs 正确思路"对照 -->
+<div class="card">
+  <h2><span class="no">③</span>偏差定位 <span class="sub">红=漏点 橙=偏差 紫=错位 灰=冗余</span></h2>
+  <div class="dev d-red">
+    <div class="tag">🔴 漏点型 · {{编号}}（{{第N次}}）</div>
+    <p>{{漏了什么，具体到材料位置}}</p>
+    <div class="vs">
+      <div><b style="color:var(--red)">你当时的思路</b><br>{{推测}}</div>
+      <div><b style="color:var(--green)">正确的思路</b><br>{{该怎么想}}</div>
+    </div>
+  </div>
+  <!-- 偏差/错位/冗余卡按 d-amber / d-purple / d-gray 同结构重复 -->
+</div>
+
+<!-- ④ 三处关键决策：折叠卡，默认收起；每处必须给判据 -->
+<div class="card">
+  <h2><span class="no">④</span>三处关键决策（点开看判据）</h2>
+  <details><summary>决策 1：{{问题}}</summary><div>{{判据 + 两种写法对比 + 危险写法}}</div></details>
+  <details><summary>决策 2：{{问题}}</summary><div>{{判据 + 两种写法对比 + 危险写法}}</div></details>
+  <details><summary>决策 3：{{问题}}</summary><div>{{判据 + 两种写法对比 + 危险写法}}</div></details>
+</div>
+
+<!-- ⑤ 可迁移技巧：必须"看到X → 就做Y"格式，X蓝Y绿 -->
+<div class="card">
+  <h2><span class="no">⑤</span>可迁移技巧（看到 X → 就做 Y）</h2>
+  <div class="tips">
+    <div class="tip"><span class="x">看到{{信号X}}</span> → <span class="y">{{动作Y}}</span></div>
+    <!-- 每条一卡，2–6 条 -->
+  </div>
+</div>
+
+<!-- ⑥ 考场自检：60 秒能过完的 5 条 -->
+<div class="card">
+  <h2><span class="no">⑥</span>考场自检（答完 60 秒过一遍）</h2>
+  <ul class="check">
+    <li>{{针对本题薄弱点的自检项}}</li>
+  </ul>
+</div>
+
+<!-- ⑦ 参考作答：两版结构必须不同；复核撤回的点在原位 <del> 划线 + withdraw 标注，防止误背 -->
+<div class="card">
+  <h2><span class="no">⑦</span>参考作答 + 分数 <span class="sub">两版结构不同 · 复核撤回点原位标注</span></h2>
+  <div class="ref">
+    <div class="refcard v1">
+      <h3 style="color:var(--blue)">小马哥版 <span class="sub">{{结构说明 · 约N字 · 自评 X/满}}</span></h3>
+      <p><b>一、{{概括词}}。</b>{{具体内容}}</p>
+    </div>
+    <div class="refcard v2">
+      <h3 style="color:var(--purple)">白鹭版 <span class="sub">{{结构说明 · 约N字 · 自评 X/满}}</span></h3>
+      <p><b>{{前置标签}}。</b>{{具体内容}}</p>
+      <!-- 撤回点示例：<p><del>{{被撤回的内容}}</del><span class="withdraw">✕ 复核撤回 · 原因</span></p> -->
+    </div>
+  </div>
+  <table>
+    <tr><th>差异本质</th><th>小马哥版</th><th>白鹭版</th></tr>
+    <tr><td>组织逻辑</td><td>{{按什么组织}}</td><td>{{按什么组织}}</td></tr>
+    <tr><td>优势 / 风险</td><td>{{}}</td><td>{{}}</td></tr>
+    <tr><td>适合谁</td><td>{{}}</td><td>{{}}</td></tr>
+  </table>
+</div>
+
+<!-- 错题库趋势：次数徽章 c5(红)/c3(橙)/c2(黄)/c1(灰)；末尾放下次验收标准 -->
+<div class="card">
+  <h2><span class="no">趋势</span>错题库 · {{N}} 题累积（{{顽固项提示}}）</h2>
+  <div class="trend"><span class="cnt c5">{{编号 ×N}}</span>{{分类名}} <span class="sub">{{形态演变 · 共同根因}}</span></div>
+  <h3>下次验收（{{几项}}全过才算改善）</h3>
+  <p class="sub">{{验收标准逐项}} · 任一不过 → {{加练方案}}</p>
+</div>
+
+<!-- 待复核：识别存疑均不扣分 -->
+<div class="card">
+  <h2><span class="no">待复核</span>识别存疑（均未扣分）</h2>
+  <p style="font-size:13px">{{存疑字位置与候选，确认后如何影响评分}}</p>
+</div>
+
+<div class="footer">申论提分教练 · 教学复盘 · {{日期}} · 分数为学习参照，以官方阅卷为准</div>
+</div>
+</body>
+</html>

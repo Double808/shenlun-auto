@@ -43,7 +43,7 @@
 提交到 WorkBuddy 开放平台（https://open.workbuddy.cn）用固定结构：`SKILL.md` 在包根层，
 可选 `references/`、`scripts/`、`templates/` 目录，本仓库已原生符合。提交 zip 的构建方式：
 
-1. 只打包运行所需内容：`SKILL.md`、`LICENSE`、`NOTICE.md`、`README.md`、`CHANGELOG.md`、`references/`、`scripts/`、`examples/`
+1. 只打包运行所需内容：`SKILL.md`、`LICENSE`、`NOTICE.md`、`README.md`、`CHANGELOG.md`、`references/`、`templates/`、`scripts/`、`examples/`
 2. 排除开发产物：`.git*`、`AGENTS.md`（面向 Codex/Cursor 宿主，无需进包）
 3. 压缩时保证 **`SKILL.md` 位于 zip 根层**（不要套多层目录），且不含 `.DS_Store` / `__MACOSX`
 4. 更新提交前 `version` 必须严格大于市场已发布版本
@@ -54,7 +54,7 @@ PowerShell 示例（在仓库根目录执行）：
 $stage = "build/shenlun-auto"
 New-Item -ItemType Directory -Force $stage | Out-Null
 Copy-Item SKILL.md,LICENSE,NOTICE.md,README.md,CHANGELOG.md -Destination $stage
-Copy-Item references,scripts,examples -Destination $stage -Recurse
+Copy-Item references,templates,scripts,examples -Destination $stage -Recurse
 Compress-Archive -Path "$stage/*" -DestinationPath "shenlun-auto.zip" -Force
 ```
 
@@ -85,6 +85,7 @@ Compress-Archive -Path "$stage/*" -DestinationPath "shenlun-auto.zip" -Force
 | 双视角参考作答 | 小马哥版（结构固定、要素融合）／白鹭版（结构随题干、要素分栏），两版必须结构不同 |
 | 大作文定档 | 袁东累进四类文，强制先判单/双/多主题 → AB/ABC 型 |
 | 错题库累积 | 按**认知偏差**而非失分点记录，跨题累积成能力曲线，≥2 次自动复发提醒 |
+| HTML 阅读版报告 | 批改同时产出带颜色判定的单文件 HTML：得分指标条、逐采分点对照卡、偏差分色卡、错题趋势；离线可开、打印友好 |
 
 ## 字数推算脚本
 
@@ -114,6 +115,7 @@ shenlun-auto/
 │   └── sample-report.md              完整报告示例
 ├── references/                       参考库（已扁平化，适配两级目录限制）
 │   ├── teaching-report-spec.md       教学报告七段结构（默认）
+│   ├── html-report-spec.md           HTML 阅读版生成规范
 │   ├── auto-report-spec.md           诊断报告八段结构（降级）
 │   ├── handwriting-grid-reading.md   手写格纸识读细则
 │   ├── scoring-rules.md              评分方法与格式模板
@@ -132,6 +134,8 @@ shenlun-auto/
 │   ├── exam-index.md                 真题库索引
 │   ├── exam-template.md              真题入库模板
 │   └── exam-*.md                     真题样本（4 套）
+├── templates/
+│   └── report-template.html          HTML 阅读版报告模板
 └── scripts/
     └── count_grid.py                 稿纸字数推算 CLI
 ```
