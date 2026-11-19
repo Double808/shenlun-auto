@@ -38,26 +38,6 @@
 
 > 材料页一定要拍全——教学的核心是"材料哪句→怎么概括"。
 
-### WorkBuddy 市场提交与打包
-
-提交到 WorkBuddy 开放平台（https://open.workbuddy.cn）用固定结构：`SKILL.md` 在包根层，
-可选 `references/`、`scripts/`、`templates/` 目录，本仓库已原生符合。提交 zip 的构建方式：
-
-1. 只打包运行所需内容：`SKILL.md`、`LICENSE`、`NOTICE.md`、`README.md`、`CHANGELOG.md`、`references/`、`templates/`、`scripts/`、`examples/`
-2. 排除开发产物：`.git*`、`AGENTS.md`（面向 Codex/Cursor 宿主，无需进包）
-3. 压缩时保证 **`SKILL.md` 位于 zip 根层**（不要套多层目录），且不含 `.DS_Store` / `__MACOSX`
-4. 更新提交前 `version` 必须严格大于市场已发布版本
-
-PowerShell 示例（在仓库根目录执行）：
-
-```powershell
-$stage = "build/shenlun-auto"
-New-Item -ItemType Directory -Force $stage | Out-Null
-Copy-Item SKILL.md,LICENSE,NOTICE.md,README.md,CHANGELOG.md -Destination $stage
-Copy-Item references,templates,scripts,examples -Destination $stage -Recurse
-Compress-Archive -Path "$stage/*" -DestinationPath "shenlun-auto.zip" -Force
-```
-
 ## 报告结构
 
 ```
