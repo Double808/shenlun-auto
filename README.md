@@ -38,8 +38,6 @@
 也可以手动安装：把 `shenlun-auto` 放进 `~/.workbuddy/skills/` 或 `~/.claude/skills/`，发图说「批改」即可。
 
 > 材料页一定要拍全——教学的核心是"材料哪句→怎么概括"。
->
-> 文中命令一律写 `python`。Windows 下若 `python --version` 没有任何输出（多半是系统自带的商店占位程序），把 `python` 换成 `py` 即可。
 
 ## 报告结构
 
