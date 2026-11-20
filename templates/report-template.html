@@ -22,9 +22,15 @@
   .sub { color: var(--muted); font-size: 13px; }
 
   .head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-  .score-box { text-align: center; background: var(--red-bg); border: 1px solid #fecaca; border-radius: 12px; padding: 10px 22px; }
-  .score-box .s { font-size: 30px; font-weight: 700; color: var(--red); }
+  .score-box { text-align: center; border: 1px solid #fecaca; border-radius: 12px; padding: 10px 22px; }
+  .score-box .s { font-size: 30px; font-weight: 700; }
   .score-box .r { font-size: 12px; color: var(--muted); }
+  .score-box.ok { background: var(--green-bg); border-color: #bbf7d0; }
+  .score-box.ok .s { color: var(--green); }
+  .score-box.warn { background: var(--amber-bg); border-color: #fde68a; }
+  .score-box.warn .s { color: var(--amber); }
+  .score-box.bad { background: var(--red-bg); border-color: #fecaca; }
+  .score-box.bad .s { color: var(--red); }
   .badge { display: inline-block; border-radius: 999px; padding: 2px 10px; font-size: 12px; margin: 2px 4px 2px 0; border: 1px solid; }
   .b-blue { color: var(--blue); background: var(--blue-bg); border-color: #bfdbfe; }
   .b-gray { color: var(--gray); background: var(--gray-bg); border-color: var(--line); }
@@ -121,7 +127,8 @@
         <span class="badge b-red">⚠ 用时 X 分钟（建议 X–X）</span>
       </div>
     </div>
-    <div class="score-box">
+    <!-- 得分框按得分率选类：≥70% 用 ok（绿）、60–69% 用 warn（黄）、<60% 用 bad（红） -->
+    <div class="score-box bad">
       <div class="s">{{得分}}<span style="font-size:15px;color:var(--muted)">/{{满分}}</span></div>
       <div class="r">{{复核区间或"作参照非结论"}}</div>
     </div>

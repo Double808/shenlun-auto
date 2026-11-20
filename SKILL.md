@@ -7,7 +7,7 @@ description_zh: 申论拍照即批改，不只打分，更教你下次怎么答�
 description_en: Snap a handwritten Shenlun answer and get a teaching review that shows not just the score, but how to answer, why it works, and what to practice next.
 examples_zh: ["我拍了申论归纳概括题的手写作答，帮我批改一下", "看看我这道综合分析题写得怎么样，哪里会丢分", "把我的申论大作文按考试标准打分，讲讲下次怎么写"]
 examples_en: ["Here is a photo of my handwritten Shenlun answer. Please grade it.", "Review my comprehensive-analysis answer and tell me where I would lose points.", "Score my Shenlun essay and show me how to improve it next time."]
-version: 1.3.0
+version: 2.0.1
 author: Double808
 ---
 
@@ -102,7 +102,7 @@ author: Double808
 ## 一、总原则
 
 1. **一次到底**：整个批改在**一轮回复内**完成，不中断、不反问、不分段征求许可。
-2. **先补全，后批改**：信息缺失时按第三节的默认值补齐并**显式标注假设**，绝不因缺信息停工。
+2. **先补全，后批改**：信息缺失时按 Step 3 的默认值补齐并**显式标注假设**，绝不因缺信息停工。
 3. **识别不确定 ≠ 用户写错**：任何因字迹模糊导致的判断存疑，只能降低该条置信度，**不得计为失分**。
 4. **宁可少判，不可冤判**：看不清的句子不进偏差定位，移入「待复核」区。
 5. **教学优先于评分**：同一处问题，先讲"该怎么想"，再讲"扣了几分"。顺序反了就退化成诊断报告。
@@ -215,7 +215,8 @@ author: Double808
 
 ```
 ① 题干解剖        审题 60 秒：题型/要素/范围/字数/命题意图，每项带依据
-② 材料→答案映射    核心。表格：材料原文 | 识别信号 | 上位概括 | 必踩与否
+② 材料→答案映射    核心。表格列：材料位置 | 原文关键句 | 识别信号 | 上位概括 | 必踩 | 你的覆盖
+                   （md 版「你的覆盖」必填，写明你的原话或"未写"）
 ③ 偏差定位        漏点型 / 偏差型 / 冗余型，各给"你当时的思路 vs 正确思路"
 ④ 三处关键决策     为什么这里分条、为什么用这个词、为什么合并——每处给判据
 ⑤ 可迁移技巧       必须是「看到 X → 就做 Y」格式，不能是「要注意 Z」
@@ -336,7 +337,7 @@ author: Double808
 
 **教学含量（这是本 skill 的存在理由，先查这几条）**
 
-- [ ] ②映射表有「材料原文 + 识别信号 + 上位概括」三列，不是只列答案
+- [ ] ②映射表六列齐全（材料位置 + 原文关键句 + 识别信号 + 上位概括 + 必踩 + 你的覆盖），不是只列答案
 - [ ] ③偏差定位给了"你当时的思路 vs 正确思路"，不是只标错
 - [ ] ④三处决策**每处都有判据**，不是知识点罗列
 - [ ] ⑤技巧全是「看到 X → 就做 Y」格式，没有"要注意""多练"这类空话

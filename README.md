@@ -4,12 +4,13 @@
 
 ![license](https://img.shields.io/badge/license-MIT-blue)
 ![format](https://img.shields.io/badge/format-SKILL.md-orange)
-![agents](https://img.shields.io/badge/works%20with-Claude%20%7C%20Codex%20%7C%20Cursor%20%7C%20WorkBuddy-2ea44f)
 ![python](https://img.shields.io/badge/python-3.9%2B-3776AB)
 
 一个**通用 Agent 技能包**：把手写的申论答卷照片变成一份**教学复盘报告**——按稿纸格数转写、推算字数、匹配真题采分点，输出「题干解剖 → 材料映射 → 偏差定位 → 关键决策 → 可迁移技巧 → 考场自检 → 参考作答」七段教学。
 
 不绑定任何平台。核心只是 `SKILL.md` + `references/` + 一个脚本，凡具备**读图 + 读写文件**能力的 Agent 都能跑。
+
+当前版本：`v2.0.1`（2026-11-20）
 
 ## 它解决什么问题
 
@@ -37,6 +38,28 @@
 也可以手动安装：把 `shenlun-auto` 放进 `~/.workbuddy/skills/` 或 `~/.claude/skills/`，发图说「批改」即可。
 
 > 材料页一定要拍全——教学的核心是"材料哪句→怎么概括"。
+>
+> 文中命令一律写 `python`。Windows 下若 `python --version` 没有任何输出（多半是系统自带的商店占位程序），把 `python` 换成 `py` 即可。
+
+### WorkBuddy 市场提交与打包
+
+提交到 WorkBuddy 开放平台（https://open.workbuddy.cn）用固定结构：`SKILL.md` 在包根层，
+可选 `references/`、`scripts/`、`templates/` 目录，本仓库已原生符合。提交 zip 的构建方式：
+
+1. 只打包运行所需内容：`SKILL.md`、`LICENSE`、`NOTICE.md`、`README.md`、`CHANGELOG.md`、`references/`、`templates/`、`scripts/`、`examples/`
+2. 排除开发产物：`.git*`、`AGENTS.md`（面向 Codex/Cursor 宿主，无需进包）
+3. 压缩时保证 **`SKILL.md` 位于 zip 根层**（不要套多层目录），且不含 `.DS_Store` / `__MACOSX`
+4. 更新提交前 `version` 必须严格大于市场已发布版本
+
+PowerShell 示例（在仓库根目录执行）：
+
+```powershell
+$stage = "build/shenlun-auto"
+New-Item -ItemType Directory -Force $stage | Out-Null
+Copy-Item SKILL.md,LICENSE,NOTICE.md,README.md,CHANGELOG.md -Destination $stage
+Copy-Item references,templates,scripts,examples -Destination $stage -Recurse
+Compress-Archive -Path "$stage/*" -DestinationPath "shenlun-auto.zip" -Force
+```
 
 ## 报告结构
 

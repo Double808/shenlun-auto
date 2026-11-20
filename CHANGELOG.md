@@ -2,6 +2,33 @@
 
 版本号规则：`MAJOR.MINOR.PATCH`。WorkBuddy 平台要求包内版本号严格大于市场已发布版本，因此每次提交前必须递增。
 
+## v2.0.1 — 2026-11-20
+
+### 修复
+- **交付文档可迁移性**：清除维护文档中的本机绝对路径，`outputs/` 旧目录名统一改为 `review/`
+- **口径统一**：②材料映射表统一为六列（含「你的覆盖」），示例报告同步补齐；错题库新增「认知偏差 ↔ 8 维编号」映射，entries 模板增加「认知偏差」栏
+- **指令冲突**：`exam-index.md` 不再要求向用户索取题干（改为静默兜底），`router.md` 的 `fanwen` 排版约定标注为本 skill 覆盖
+- **章节引用**：`SKILL.md` 的「第三节默认值」更正为「Step 3」
+- **发布一致性**：CHANGELOG 区分技能包与完整交付包；新增 `SHA256SUMS.txt`；LICENSE 的 `vendor/` 更正为 `references/`
+- **HTML 报告**：得分框按得分率分为绿/黄/红三档，不再一律用红色
+- **复盘总入口**：移除静态题卡与统计，全部由 `data/questions.js` 驱动；新增数据缺失兜底提示
+- **脚本**：`sync_index.py` / `add_review.py` 输出统一 UTF-8；`rate` 改为派生字段，不再写回 `questions.json`；移除未使用导入
+- **文档**：补充 Windows 下 `python` 不可用时改用 `py` 的说明；顶层 README 增加隐私提示
+
+## v2.0.0 — 2026-11-20
+
+### 新增（完整交付包，不在 WorkBuddy 技能包内）
+- **申论复盘工作区**：完整交付包加入多题总入口、五份 HTML 批改页、错题总览与材料状态展示
+- **原材料折叠区与归档机制**：每题顶部新增 `source-material` 折叠区，原图统一归档到 `assets/materials/<id>/`；
+  **当前五题材料均待补拍**（`data-ready="false"`），尚未录入 OCR 全文与原图
+- **跨 Agent 增量索引**：以 `data/questions.json` 为唯一数据源，通过 `scripts/add_review.py` 与 `scripts/sync_index.py`
+  追加新题、校验页面和更新总入口（脚本位于 `review/shenlun-review/`，不在技能包内）
+- **HTML 批改阅读版**：保留逐点材料映射、手写作答标记、右侧批注和教学复盘
+
+### 变更
+- 技能版本提升到 `v2.0.0`；WorkBuddy 发布包同步更新
+- 完整交付包统一版本号、README、启动入口和 `SHA256SUMS.txt` 校验文件
+
 ## v1.3.0 — 2026-11-19
 
 ### 新增
